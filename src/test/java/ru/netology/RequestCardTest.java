@@ -39,8 +39,8 @@ public class RequestCardTest {
 
     @Test
     void shouldSendFormSuccess() {
-        driver.findElement(By.cssSelector("[data-test-id='name'].input .input__control")).sendKeys("Иванов-Олег Алексеевич");
-        driver.findElement(By.cssSelector("[data-test-id='phone'].input .input__control")).sendKeys("+70009181717");
+        driver.findElement(By.cssSelector("[data-test-id='name'] input")).sendKeys("Иванов-Олег Алексеевич");
+        driver.findElement(By.cssSelector("[data-test-id='phone'] input")).sendKeys("+70009181717");
         driver.findElement(By.cssSelector("[data-test-id='agreement']")).click();
         driver.findElement(By.cssSelector("[type='button']")).click();
 
@@ -52,7 +52,7 @@ public class RequestCardTest {
 
     @Test
     void shouldFailedWithoutName() {
-        driver.findElement(By.cssSelector("[data-test-id='phone'].input .input__control")).sendKeys("+70009181717");
+        driver.findElement(By.cssSelector("[data-test-id='phone'] input")).sendKeys("+70009181717");
         driver.findElement(By.cssSelector("[data-test-id='agreement']")).click();
         driver.findElement(By.cssSelector("[type='button']")).click();
 
@@ -64,7 +64,7 @@ public class RequestCardTest {
 
     @Test
     void shouldFailedWithoutPhone() {
-        driver.findElement(By.cssSelector("[data-test-id='name'].input .input__control")).sendKeys("Иванов-Олег Алексеевич");
+        driver.findElement(By.cssSelector("[data-test-id='name'] input")).sendKeys("Иванов-Олег Алексеевич");
         driver.findElement(By.cssSelector("[data-test-id='agreement']")).click();
         driver.findElement(By.cssSelector("[type='button']")).click();
 
@@ -76,8 +76,8 @@ public class RequestCardTest {
 
     @Test
     void shouldFailedWithBadName() {
-        driver.findElement(By.cssSelector("[data-test-id='name'].input .input__control")).sendKeys("Ivanov Oleg");
-        driver.findElement(By.cssSelector("[data-test-id='phone'].input .input__control")).sendKeys("+70009188765");
+        driver.findElement(By.cssSelector("[data-test-id='name'] input")).sendKeys("Ivanov Oleg");
+        driver.findElement(By.cssSelector("[data-test-id='phone'] input")).sendKeys("+70009188765");
         driver.findElement(By.cssSelector("[data-test-id='agreement']")).click();
         driver.findElement(By.cssSelector("[type='button']")).click();
 
@@ -89,8 +89,8 @@ public class RequestCardTest {
 
     @Test
     void shouldFailedWithBadPhone() {
-        driver.findElement(By.cssSelector("[data-test-id='name'].input .input__control")).sendKeys("Олег");
-        driver.findElement(By.cssSelector("[data-test-id='phone'].input .input__control")).sendKeys("+70009181717123");
+        driver.findElement(By.cssSelector("[data-test-id='name'] input")).sendKeys("Олег");
+        driver.findElement(By.cssSelector("[data-test-id='phone'] input")).sendKeys("+70009181717123");
         driver.findElement(By.cssSelector("[data-test-id='agreement']")).click();
         driver.findElement(By.cssSelector("[type='button']")).click();
 
@@ -102,8 +102,8 @@ public class RequestCardTest {
 
     @Test
     void shouldFailedWithoutAgreement() {
-        driver.findElement(By.cssSelector("[data-test-id='name'].input .input__control")).sendKeys("Иванов-Олег Алексеевич");
-        driver.findElement(By.cssSelector("[data-test-id='phone'].input .input__control")).sendKeys("+70009181717");
+        driver.findElement(By.cssSelector("[data-test-id='name'] input")).sendKeys("Иванов-Олег Алексеевич");
+        driver.findElement(By.cssSelector("[data-test-id='phone'] input")).sendKeys("+70009181717");
         driver.findElement(By.cssSelector("[type='button']")).click();
 
         WebElement errorElement = driver.findElement(By.cssSelector("[data-test-id='agreement'].input_invalid"));
