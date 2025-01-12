@@ -28,6 +28,7 @@ public class RequestCardTest {
         options.addArguments("--headless");
 
         driver = new ChromeDriver(options);
+        driver.get("http://localhost:9999");
     }
 
     @AfterEach
@@ -38,10 +39,8 @@ public class RequestCardTest {
 
     @Test
     void shouldSendFormSuccess() {
-        driver.get("http://localhost:9999");
-
-        driver.findElement(By.cssSelector("[data-test-id='name']")).findElement(By.cssSelector("input")).sendKeys("Иванов-Олег Алексеевич");
-        driver.findElement(By.cssSelector("[data-test-id='phone']")).findElement(By.cssSelector("input")).sendKeys("+70009181717");
+        driver.findElement(By.cssSelector("[data-test-id='name'].input .input__control")).sendKeys("Иванов-Олег Алексеевич");
+        driver.findElement(By.cssSelector("[data-test-id='phone'].input .input__control")).sendKeys("+70009181717");
         driver.findElement(By.cssSelector("[data-test-id='agreement']")).click();
         driver.findElement(By.cssSelector("[type='button']")).click();
 
@@ -53,12 +52,11 @@ public class RequestCardTest {
 
     @Test
     void shouldFailedWithoutName() {
-        driver.get("http://localhost:9999");
-
+        driver.findElement(By.cssSelector("[data-test-id='phone'].input .input__control")).sendKeys("+70009181717");
         driver.findElement(By.cssSelector("[data-test-id='agreement']")).click();
         driver.findElement(By.cssSelector("[type='button']")).click();
 
-        WebElement errorElementName = driver.findElement(By.cssSelector("[data-test-id='name'")).findElement(By.cssSelector("[class='input__sub']"));
+        WebElement errorElementName = driver.findElement(By.cssSelector("[data-test-id='name'].input_invalid .input__sub"));
         assertTrue(errorElementName.isDisplayed());
 
         assertEquals("Поле обязательно для заполнения", errorElementName.getText());
@@ -66,13 +64,11 @@ public class RequestCardTest {
 
     @Test
     void shouldFailedWithoutPhone() {
-        driver.get("http://localhost:9999");
-
-        driver.findElement(By.cssSelector("[data-test-id='name']")).findElement(By.cssSelector("input")).sendKeys("Иванов-Олег Алексеевич");
+        driver.findElement(By.cssSelector("[data-test-id='name'].input .input__control")).sendKeys("Иванов-Олег Алексеевич");
         driver.findElement(By.cssSelector("[data-test-id='agreement']")).click();
         driver.findElement(By.cssSelector("[type='button']")).click();
 
-        WebElement errorElementPhone = driver.findElement(By.cssSelector("[data-test-id='phone'")).findElement(By.cssSelector("[class='input__sub']"));
+        WebElement errorElementPhone = driver.findElement(By.cssSelector("[data-test-id='phone'].input_invalid .input__sub"));
         assertTrue(errorElementPhone.isDisplayed());
 
         assertEquals("Поле обязательно для заполнения", errorElementPhone.getText());
@@ -80,14 +76,12 @@ public class RequestCardTest {
 
     @Test
     void shouldFailedWithBadName() {
-        driver.get("http://localhost:9999");
-
-        driver.findElement(By.cssSelector("[data-test-id='name']")).findElement(By.cssSelector("input")).sendKeys("Ivanov Oleg");
-        driver.findElement(By.cssSelector("[data-test-id='phone']")).findElement(By.cssSelector("input")).sendKeys("+70009181717123");
+        driver.findElement(By.cssSelector("[data-test-id='name'].input .input__control")).sendKeys("Ivanov Oleg");
+        driver.findElement(By.cssSelector("[data-test-id='phone'].input .input__control")).sendKeys("+70009188765");
         driver.findElement(By.cssSelector("[data-test-id='agreement']")).click();
         driver.findElement(By.cssSelector("[type='button']")).click();
 
-        WebElement errorElementName = driver.findElement(By.cssSelector("[data-test-id='name'")).findElement(By.cssSelector("[class='input__sub']"));
+        WebElement errorElementName = driver.findElement(By.cssSelector("[data-test-id='name'].input_invalid .input__sub"));
         assertTrue(errorElementName.isDisplayed());
 
         assertEquals("Имя и Фамилия указаные неверно. Допустимы только русские буквы, пробелы и дефисы.", errorElementName.getText());
@@ -95,14 +89,12 @@ public class RequestCardTest {
 
     @Test
     void shouldFailedWithBadPhone() {
-        driver.get("http://localhost:9999");
-
-        driver.findElement(By.cssSelector("[data-test-id='name']")).findElement(By.cssSelector("input")).sendKeys("Олег");
-        driver.findElement(By.cssSelector("[data-test-id='phone']")).findElement(By.cssSelector("input")).sendKeys("+70009181717123");
+        driver.findElement(By.cssSelector("[data-test-id='name'].input .input__control")).sendKeys("Олег");
+        driver.findElement(By.cssSelector("[data-test-id='phone'].input .input__control")).sendKeys("+70009181717123");
         driver.findElement(By.cssSelector("[data-test-id='agreement']")).click();
         driver.findElement(By.cssSelector("[type='button']")).click();
 
-        WebElement errorElementPhone = driver.findElement(By.cssSelector("[data-test-id='phone'")).findElement(By.cssSelector("[class='input__sub']"));
+        WebElement errorElementPhone = driver.findElement(By.cssSelector("[data-test-id='phone'].input_invalid .input__sub"));
         assertTrue(errorElementPhone.isDisplayed());
 
         assertEquals("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678.", errorElementPhone.getText());
@@ -110,10 +102,8 @@ public class RequestCardTest {
 
     @Test
     void shouldFailedWithoutAgreement() {
-        driver.get("http://localhost:9999");
-
-        driver.findElement(By.cssSelector("[data-test-id='name']")).findElement(By.cssSelector("input")).sendKeys("Иванов-Олег Алексеевич");
-        driver.findElement(By.cssSelector("[data-test-id='phone']")).findElement(By.cssSelector("input")).sendKeys("+70009181717");
+        driver.findElement(By.cssSelector("[data-test-id='name'].input .input__control")).sendKeys("Иванов-Олег Алексеевич");
+        driver.findElement(By.cssSelector("[data-test-id='phone'].input .input__control")).sendKeys("+70009181717");
         driver.findElement(By.cssSelector("[type='button']")).click();
 
         WebElement errorElement = driver.findElement(By.cssSelector("[data-test-id='agreement'].input_invalid"));
